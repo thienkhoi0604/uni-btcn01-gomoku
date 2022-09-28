@@ -1,0 +1,7 @@
+.square {
+  background-color: #e4b97e;
+  border: 0.5px solid black;
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+}

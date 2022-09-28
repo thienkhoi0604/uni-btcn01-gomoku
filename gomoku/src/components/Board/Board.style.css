@@ -1,0 +1,14 @@
+.board {
+  display: flex;
+  width: 500px;
+  height: 500px;
+  text-align: center;
+  margin-left: 50px;
+  margin-top: 50px;
+}
+
+.history {
+  margin-left: 10px;
+  width: 100px;
+  height: auto;
+}
