@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/http(s)://thienkhoi0604.github.io/uni-btcn01-gomoku/static/css/main.2e6495d5.css",
+    "main.js": "/http(s)://thienkhoi0604.github.io/uni-btcn01-gomoku/static/js/main.3691a5ff.js",
+    "static/js/787.ad6089d3.chunk.js": "/http(s)://thienkhoi0604.github.io/uni-btcn01-gomoku/static/js/787.ad6089d3.chunk.js",
+    "index.html": "/http(s)://thienkhoi0604.github.io/uni-btcn01-gomoku/index.html",
+    "main.2e6495d5.css.map": "/http(s)://thienkhoi0604.github.io/uni-btcn01-gomoku/static/css/main.2e6495d5.css.map",
+    "main.3691a5ff.js.map": "/http(s)://thienkhoi0604.github.io/uni-btcn01-gomoku/static/js/main.3691a5ff.js.map",
+    "787.ad6089d3.chunk.js.map": "/http(s)://thienkhoi0604.github.io/uni-btcn01-gomoku/static/js/787.ad6089d3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2e6495d5.css",
+    "static/js/main.3691a5ff.js"
+  ]
+}
