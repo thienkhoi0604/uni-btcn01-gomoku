@@ -1,0 +1,19 @@
+.history {
+  margin: 0px 30px;
+  padding-left: 0px;
+}
+
+.history-item {
+  display: block;
+  float: inline-start;
+  padding: 5px 0px;
+  width: 150px;
+  font-size: 16px;
+  text-align: start;
+  line-height: 1.2;
+}
+
+.history .row {
+  display: inline;
+  padding: 0px 5px;
+}

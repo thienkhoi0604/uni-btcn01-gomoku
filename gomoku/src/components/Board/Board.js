@@ -2,6 +2,8 @@ import "./Board.style.css";
 
 import { useState } from "react";
 import Square from "../Square/Square";
+import History from "../History/History";
+import Button from "../UI/Button/Button";
 
 const Board = () => {
   const ROWS = 20;
@@ -12,6 +14,15 @@ const Board = () => {
   const [isWhite, setIsWhite] = useState(true);
   const [board, setBoard] = useState(newArray);
   const [history, setHistory] = useState([]);
+  const [currentValue, setCurrentValue] = useState({});
+
+  const checkDraw = (grid) => {
+    const result = grid
+      .map((element) => element.filter((square) => square === "+"))
+      .filter((square) => square.length);
+
+    return result.length;
+  };
 
   const handleReset = () => {
     setIsWhite(true);
@@ -19,23 +30,55 @@ const Board = () => {
     setHistory([]);
   };
 
+  const sortAscending = (firstItem, secondItem) => {
+    if (firstItem.row === secondItem.row) {
+      return firstItem.col - secondItem.col;
+    } else {
+      return firstItem.row > secondItem.row ? 1 : -1;
+    }
+  };
+
+  const handleSortAscending = () => {
+    let prevHistory = history.slice();
+    prevHistory.sort(sortAscending);
+    setHistory(prevHistory);
+  };
+
+  const handleSortDescending = () => {
+    let prevHistory = history.slice();
+    prevHistory.sort(sortAscending);
+    prevHistory.reverse();
+    setHistory(prevHistory);
+  };
+
   const handleClick = (x, y) => {
     if (board[x][y] === "+") {
-      const g = board;
-      const history_temp = history;
+      const grid = board;
+      let history_temp = history;
 
-      g[x][y] = isWhite === true ? "w" : "b";
-      history_temp.push(x + 1 + "__" + (y + 1));
+      grid[x][y] = isWhite === true ? "w" : "b";
+      //history_temp.push({ col: x + 1, row: y + 1 });
+      history_temp = [{ col: x + 1, row: y + 1 }, ...history_temp];
 
+      setCurrentValue({ col: x + 1, row: y + 1 });
       setHistory(history_temp);
       setIsWhite(!isWhite);
-      setBoard(g);
+      setBoard(grid);
+
+      if (!checkDraw(grid)) {
+        setTimeout(() => {
+          alert("Draw");
+          handleReset();
+        }, 1);
+      } else {
+        //Do nothing
+      }
 
       const checkDir = (x_temp, y_temp, color) => {
         let tracked = 0;
         let x_curr = x;
         let y_curr = y;
-        while (g[x_curr] !== undefined && g[x_curr][y_curr] === color) {
+        while (grid[x_curr] !== undefined && grid[x_curr][y_curr] === color) {
           tracked += 1;
           y_curr += y_temp;
           x_curr += x_temp;
@@ -63,7 +106,10 @@ const Board = () => {
       ) {
         setTimeout(() => {
           alert("white wins");
+          handleReset();
         }, 1);
+      } else {
+        //Do nothing
       }
 
       if (
@@ -74,7 +120,10 @@ const Board = () => {
       ) {
         setTimeout(() => {
           alert("black wins");
+          handleReset();
         }, 1);
+      } else {
+        //Do nothing
       }
     } else {
       //Do nothing
@@ -82,7 +131,7 @@ const Board = () => {
   };
 
   const g = board;
-  const grid = g.map((row, i) => {
+  const grid = board.map((row, i) => {
     return (
       <div key={"row_" + i}>
         {row.map((col, j) => {
@@ -104,30 +153,10 @@ const Board = () => {
   return (
     <div className="board">
       {grid}
-      <div>
-        <button
-          onClick={handleReset}
-          style={{ height: "30px", width: "100px", margin: "20px" }}
-        >
-          Reset game
-        </button>
-      </div>
-      <div className="history">
-        History
-        <ul>
-          {history.map((item, index) => {
-            if (index === history.length - 1) {
-              console.log("checked");
-              return (
-                <li key={index} style={{ fontWeight: "bold" }}>
-                  {item}
-                </li>
-              );
-            }
-            return <li key={index}>{item}</li>;
-          })}
-        </ul>
-      </div>
+      <History currentValue={currentValue} history={history} />
+      <Button onClick={handleReset}>Reset game</Button>
+      <Button onClick={handleSortAscending}>Sort ASC</Button>
+      <Button onClick={handleSortDescending}>Sort DESC</Button>
     </div>
   );
 };
